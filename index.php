@@ -13,22 +13,24 @@ require "classes/Orc.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>GRRRRRRRR</title>
 </head>
+<style>
+    body {
+        background-image: url(https://s3.amazonaws.com/spoonflower/public/design_thumbnails/0410/4788/rspoonflower_rooster_duck_shop_preview.png);
+    }
+</style>
 
 <body>
-    <h1 class="text-center">GRRRRRRRR - The Ultimate Battle Of The Century Of The Universe Of Gods</h1>
+    <h1 class="text-center fw-bold text-decoration-underline bg-light w-100">GRRRRRRRR - The Ultimate Battle Of The Century Of The Universe Of Gods</h1>
     <?php
     $john = new Hero(2000, 0, "Banana", 250, "StoneShield", 600);
     $joanna = new Orc(500, 0, 0);
-
-    var_dump($john);
-    var_dump($joanna);
     ?>
-    <div class="container w-50">
+    <div class="container w-50 bg-dark text-light">
         <!-- Hero -->
-        <div class="row justify-content-evenly">
-            <div class="card col">
+        <div class="row p-3">
+            <div class="card col border-success bg-dark m-2">
                 <h2 class="card-title text-end">John Le Héros</h2>
-                <p class="card-text">Je m'appelle John. Je suis un héros avec une épee en forme de banane.</p>
+                <p class="card-text">Je m'appelle John. Je suis un héros avec une épée en forme de banane.</p>
                 <p class="card-text">
                     Compétences:
                 <ul>
@@ -42,7 +44,7 @@ require "classes/Orc.php";
                 </p>
             </div>
             <!-- Orc -->
-            <div class="card col">
+            <div class="card col border-danger bg-dark m-2">
                 <h2 class="card-title text-end">Joanna L'Orc</h2>
                 <p class="card-text">Moi je m'appelle Joanna. Je suis une femelle Orc pas très sympa.</p>
                 <p class="card-text">
@@ -55,8 +57,48 @@ require "classes/Orc.php";
                 </p>
             </div>
         </div>
-        <div class="row">
-            <p class="text-danger">Attention! Joanna attaque et inflige <?= $joanna->attack($damage) ?> points de dégât!</p>
+
+        <!-- FIGHT! -->
+        <div class="row p-3">
+            <?php
+            while ($john->get_health() > 0) {
+                $joanna->attack();
+                $john->is_attacked($joanna->getDamage());
+
+                if ($john->get_health() > 0) {
+            ?>
+                    <p class="text-danger">Attention! Joanna attaque et inflige <?= $joanna->getDamage() ?> points de dégât!</p>
+                    <?php
+
+                    ?>
+                    <p class="text-success">Notre héros est mal en point, plus que <?= $john->get_health() ?> points de vie...</p>
+                    <p class="text-success">Mais ses points de rage augmentent:
+                        <?php
+                        $john->increaseRage();
+                        echo $john->get_rage();
+                        ?>
+                    </p>
+                    <?php
+                    if ($john->get_rage() >= 100) {
+                        $joanna->gets_hit($john->get_weaponDamage());
+                        $john->set_rage(0);
+                    ?>
+                        <p class="text-warning">Joanna est touchée! - <?= $john->get_weaponDamage(); ?> points de vie pour Joanna qui se retrouve à <?= $joanna->get_health() ?></p>
+                        <?php
+                        if ($joanna->get_health() <= 0) {
+                        ?>
+                            <p class="text-light fw-bold text-decoration-underline">† Joanna est décédée. †</p>
+                    <?php
+                    break;
+                        }
+                    }
+                } else {
+                    ?>
+                    <p class="text-light fw-bold text-decoration-underline">† John est décédé. †</p>
+            <?php
+                }
+            }
+            ?>
         </div>
     </div>
 

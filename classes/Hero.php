@@ -116,21 +116,20 @@ class Hero extends Character
      * @param int $damage
      * @return int
      */
-    public function is_attacked(int $damage):int
+    public function is_attacked(int $damage): int
     {
         if ($this->shieldValue < $damage) {
             $this->set_health($this->get_health() - ($damage - $this->shieldValue));
         }
-            $this->increaseRage();
-            return $this->get_health();
+        return $this->get_health();
     }
     /**
-     * 
      * Rage increasing function: the value is in character.php so we need to call the setter.
      * 
      * @return int
      */
-    public function increaseRage(): int {
+    public function increaseRage(): int
+    {
         $this->set_rage($this->get_rage() + 30);
         return $this->get_rage();
     }

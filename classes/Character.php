@@ -59,15 +59,3 @@ class Character {
         $this->rage = $rage;
     }
 }
-
-
-/**
- * $john = new Hero("1000", "150", "Broadsword", "4", "Wooden Shield", "10");
-        echo "<h1>John Le Héro</h1>";
-        echo "<p>HP: " . $john->get_health() . "</p>";
-        echo "<p>R : " . $john->get_rage() . "</p>";
-        echo "<p>W : " . $john->get_weapon() . "</p>";
-        echo "<p>WP: " . $john->get_weaponDamage() . "</p>";
-        echo "<p>S : " . $john->get_shield() . "</p>";
-        echo "<p>SP: " . $john->get_shieldValue() . "</p>";
- */

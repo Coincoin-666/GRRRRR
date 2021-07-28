@@ -15,12 +15,10 @@ class Orc extends Character {
     /**
      * Set the orc attack
      * 
-     * @param int
      * @return self
      */
     public function attack() {
-        rand(600, 800);
-        return $this;
+        $this->damage = rand(600, 800);
     }
     /**
      * Get the value of damage
@@ -40,7 +38,19 @@ class Orc extends Character {
         $this->damage = $damage;
         return $this;
     }
-    public function __construct($health, $rage, $damage) {
+    /**
+     * Settings to hit the Orc
+     * 
+     * @param int $get_weaponDamage
+     * @param int 
+     * @return int $health
+     */
+    public function gets_hit(int $get_weaponDamage) {
+        $this->set_health($this->get_health() - $get_weaponDamage);
+        return $this->get_health();
+    }
+
+    public function __construct(int $health, int $rage, int $damage) {
         parent::__construct($health, $rage);
         $this->damage = $damage;
     }
